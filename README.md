@@ -9,20 +9,20 @@ Updating...
 # Available settings
 
 ## Controller
-* open/close/toggle the drawer with controller
+* Open/close/toggle the drawer with controller.
 
 ## Drawer
-* set edge drag width
-* set width of the drawer widget that which can be displayed
+* Set edge drag width.
+* Set width of the drawer widget that which can be displayed.
 
 ## Content
-* set scale of content widget when it is opened
-* set radius of content widget when it is opened
-* set color opacity above content widget when it is opened
-* set opacity of color when it is opened
-* set offset to determine the action auto open/close drawer when the tap is stopped
+* Set scale of content widget when it is opened.
+* Set radius of content widget when it is opened.
+* Set color opacity above content widget when it is opened.
+* Set opacity of color when it is opened.
+* Set offset to determine the action auto open/close drawer when the tap is stopped.
 
 ## Animation
-* change duration for the open/close animation
-* listen the animation progress updated when drawer is opening/closing
-* listen drawer state
+* Change duration for the open/close animation.
+* Listen the animation progress updated when drawer is opening/closing.
+* Listen drawer state.
