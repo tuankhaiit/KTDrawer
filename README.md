@@ -1,4 +1,6 @@
-![](example/images/layout.gif)
+<p align="center">
+    <img width="500" height="900" src="./example/images/layout.gif"/>
+</p>
 
 # KTDrawer
 
