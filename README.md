@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="300" height="600" src="./example/images/layout.gif"/>
+    <img width="300" height="600" src="https://github.com/tuankhaiit/KTDrawer/blob/master/example/images/layout.gif"/>
 </p>
 
 # KTDrawer
