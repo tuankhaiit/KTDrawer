@@ -53,6 +53,8 @@ class MainPage extends StatelessWidget {
 ## Available settings
 
 ### Controller
+This actions is only accessible by the children of KTDrawerMenu.
+
 #### Get controller
 ```Dart
 KTDrawerMenu.of(context);
