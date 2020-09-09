@@ -2,6 +2,17 @@ library kt_drawer_menu;
 
 import 'package:flutter/material.dart';
 
+const kDuration = 180;
+const kEdgeDragWidth = 20.0;
+const kWidth = 300.0;
+const kScale = 0.6;
+const kOffset = 0.5;
+const kRadius = 40.0;
+const kShadow = 10.0;
+const kShadowColor = Colors.black38;
+const kOpacity = 0.0;
+const kColorOverlay = Colors.transparent;
+
 // ignore: must_be_immutable
 class KTDrawerMenu extends StatefulWidget {
   final KTDrawerController controller;
@@ -10,12 +21,14 @@ class KTDrawerMenu extends StatefulWidget {
   final Duration duration;
 
   final double edgeDragWidth;
-  final double maxWidth;
-  final double minScale;
+  final double width;
+  final double scale;
   final double offset;
   final double radius;
+  final double shadow;
+  final Color shadowColor;
   final double opacity;
-  final Color colorOpacity;
+  final Color colorOverlay;
   final AnimationStatusListener onStateChange;
   final ValueChanged<double> onProgressChange;
 
@@ -25,38 +38,47 @@ class KTDrawerMenu extends StatefulWidget {
     @required this.content,
     KTDrawerController controller,
     Duration duration,
-    this.maxWidth = 300.0,
-    this.edgeDragWidth = 20.0,
-    this.minScale = 0.6,
-    this.offset = 0.5,
-    this.radius = 50.0,
-    this.opacity = 0.0,
-    this.colorOpacity = Colors.transparent,
+    this.width = kWidth,
+    this.edgeDragWidth = kEdgeDragWidth,
+    this.scale = kScale,
+    this.offset = kOffset,
+    this.radius = kRadius,
+    this.shadow = kShadow,
+    this.shadowColor = kShadowColor,
+    this.opacity = kOpacity,
+    this.colorOverlay = kColorOverlay,
     this.onStateChange,
     this.onProgressChange,
-  })  : this.controller = controller ?? KTDrawerController(),
-        this.duration = duration ?? Duration(milliseconds: 150),
+  })
+      : this.controller = controller ?? KTDrawerController(),
+        this.duration = duration ?? Duration(milliseconds: kDuration),
         assert(edgeDragWidth > 0),
-        assert(opacity >= 0 && opacity < 1),
-        assert(minScale > 0 && minScale < 1),
-        assert(offset > 0 && offset < 1),
+        assert(opacity >= 0 && opacity < 1.0),
+        assert(scale > 0 && scale < 1.0),
+        assert(offset > 0 && offset < 1.0),
         super(key: key);
 
   @override
   State<StatefulWidget> createState() => _KTDrawerMenuState();
+
+  static KTDrawerController of(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<_KTDrawerInheritedWidget>()
+        .data;
+  }
 }
 
 class _KTDrawerMenuState extends State<KTDrawerMenu>
     with TickerProviderStateMixin {
   AnimationController _animationController;
-  Animation<double> _animation, _scaleAnimation, _alphaAnimation;
+  Animation<double> _animation, _scaleAnimation;
+  Animation<double> _alphaAnimation, _shadowAnimation;
   Animation<BorderRadius> _radiusAnimation;
 
-  static final kVelocity = 700;
-  var downOffset = Offset.zero;
-  var isDragging = false;
-  var isOpen = false;
-  var scale = 1.0;
+  static final kVelocity = 700.0;
+  var _downOffset = Offset.zero;
+  var _isDragging = false;
+  var _isOpen = false;
 
   @override
   void initState() {
@@ -69,20 +91,20 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
     );
 
     _animation =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController)
-          ..addListener(() {
-            if (widget.onProgressChange != null) {
-              widget.onProgressChange(_animation.value);
-            }
-            setState(() {});
-          })
-          ..addStatusListener((status) {
-            if (widget.onStateChange != null) {
-              widget.onStateChange(status);
-            }
-          });
+    Tween<double>(begin: 0.0, end: 1.0).animate(_animationController)
+      ..addListener(() {
+        if (widget.onProgressChange != null) {
+          widget.onProgressChange(_animation.value);
+        }
+        setState(() {});
+      })
+      ..addStatusListener((status) {
+        if (widget.onStateChange != null) {
+          widget.onStateChange(status);
+        }
+      });
 
-    _scaleAnimation = Tween<double>(begin: 1.0, end: widget.minScale)
+    _scaleAnimation = Tween<double>(begin: 1.0, end: widget.scale)
         .animate(_animationController);
 
     _alphaAnimation = Tween<double>(begin: 0.0, end: widget.opacity)
@@ -92,6 +114,10 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
       begin: BorderRadius.circular(0.0),
       end: BorderRadius.circular(widget.radius),
     ).animate(
+        CurvedAnimation(parent: _animationController, curve: Curves.ease));
+
+    _shadowAnimation = Tween<double>(begin: 0.0, end: widget.shadow)
+        .animate(
         CurvedAnimation(parent: _animationController, curve: Curves.ease));
   }
 
@@ -114,97 +140,128 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
 
   closeDrawer() {
     _animationController.reverse();
-    isOpen = false;
+    _isOpen = false;
   }
 
   openDrawer() {
     _animationController.forward();
-    isOpen = true;
+    _isOpen = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    var device = MediaQuery.of(context).size;
+    var device = MediaQuery
+        .of(context)
+        .size;
     var width = device.width;
     var height = device.height;
 
-    return Container(
-      child: GestureDetector(
-        onHorizontalDragDown: (DragDownDetails details) {
-          var position = details.globalPosition;
-          if (isOpen || (!isOpen && position.dx < widget.edgeDragWidth)) {
-            downOffset = position;
-            isDragging = true;
-          }
-        },
-        onHorizontalDragUpdate: (DragUpdateDetails details) {
-          var position = details.globalPosition;
-          if (isDragging) {
-            if (isOpen) {
-              var newValue =
-                  1 - (downOffset.dx - position.dx - 15) / widget.maxWidth;
-              _animationController.value = newValue;
-            } else {
-              var newValue =
-                  (position.dx - downOffset.dx - 15) / widget.maxWidth;
-              _animationController.value = newValue;
+    return _KTDrawerInheritedWidget(
+      data: widget.controller,
+      child: Material(
+        type: MaterialType.transparency,
+        child: GestureDetector(
+          onHorizontalDragDown: (DragDownDetails details) {
+            var position = details.globalPosition;
+            if (_isOpen || (!_isOpen && position.dx < widget.edgeDragWidth)) {
+              _downOffset = position;
+              _isDragging = true;
             }
-          }
-        },
-        onHorizontalDragEnd: (DragEndDetails details) {
-          if (isDragging) {
-            if (details != null && details.primaryVelocity != null) {
-              if (details.primaryVelocity > kVelocity) {
-                openDrawer();
-              } else if (details.primaryVelocity < -kVelocity) {
-                closeDrawer();
+          },
+          onHorizontalDragUpdate: (DragUpdateDetails details) {
+            var position = details.globalPosition;
+            if (_isDragging) {
+              if (_isOpen) {
+                var newValue =
+                    1 - (_downOffset.dx - position.dx - 15) / widget.width;
+                _animationController.value = newValue;
               } else {
-                if (_animationController.value > widget.offset) {
+                var newValue =
+                    (position.dx - _downOffset.dx - 15) / widget.width;
+                _animationController.value = newValue;
+              }
+            }
+          },
+          onHorizontalDragEnd: (DragEndDetails details) {
+            if (_isDragging) {
+              if (details != null && details.primaryVelocity != null) {
+                if (details.primaryVelocity > kVelocity) {
                   openDrawer();
-                } else {
+                } else if (details.primaryVelocity < -kVelocity) {
                   closeDrawer();
+                } else {
+                  if (_animationController.value > widget.offset) {
+                    openDrawer();
+                  } else {
+                    closeDrawer();
+                  }
                 }
               }
             }
-          }
 
-          isDragging = false;
-        },
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            widget.drawer,
-            Transform.scale(
-              scale: _scaleAnimation.value,
-              child: Transform.translate(
-                offset: Offset(widget.maxWidth * _animation.value, 0.0),
-                child: SizedBox(
-                  width: width,
-                  height: height,
-                  child: AbsorbPointer(
-                    absorbing: _animationController.isCompleted,
-                    child: ClipRRect(
-                      borderRadius: _radiusAnimation.value,
-                      child: Stack(
-                        children: [
-                          widget.content,
-                          Container(
-                            color: _animation.value == 0
-                                ? null
-                                : widget.colorOpacity
-                                    .withOpacity(_alphaAnimation.value),
+            _isDragging = false;
+          },
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              widget.drawer,
+              Transform.scale(
+                scale: _scaleAnimation.value,
+                child: Transform.translate(
+                  offset: Offset(widget.width * _animation.value, 0.0),
+                  child: Container(
+                    width: width,
+                    height: height,
+                    decoration: BoxDecoration(
+                        borderRadius: _radiusAnimation.value,
+                        boxShadow: [
+                          BoxShadow(
+                              color: widget.shadowColor.withOpacity(0.5),
+                              spreadRadius: _shadowAnimation.value / 2.0,
+                              blurRadius: _shadowAnimation.value * 2
                           )
-                        ],
+                        ]
+                    ),
+                    child: AbsorbPointer(
+                      absorbing: _animationController.isCompleted,
+                      child: ClipRRect(
+                        borderRadius: _radiusAnimation.value,
+                        child: Stack(
+                          children: [
+                            widget.content,
+                            Container(
+                              color: _animation.value == 0
+                                  ? null
+                                  : widget.colorOverlay
+                                  .withOpacity(_alphaAnimation.value),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+class _KTDrawerInheritedWidget extends InheritedWidget {
+  final KTDrawerController data;
+
+  _KTDrawerInheritedWidget({
+    Key key,
+    @required Widget child,
+    @required this.data,
+  }) : super(key: key, child: child);
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) {
+    return true;
   }
 }
 
@@ -216,13 +273,13 @@ class KTDrawerController {
 
   KTDrawerController();
 
-  void open() {
+  void openDrawer() {
     if (_state != null) {
       _state.openDrawer();
     }
   }
 
-  void close() {
+  void closeDrawer() {
     if (_state != null) {
       _state.closeDrawer();
     }
