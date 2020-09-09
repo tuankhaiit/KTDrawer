@@ -1,4 +1,4 @@
-![](https://github.com/tuankhaiit/KTDrawer/tree/master/example/images/layout.gif)
+![](example/images/layout.gif)
 
 # KTDrawer
 
