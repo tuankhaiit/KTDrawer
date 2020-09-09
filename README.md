@@ -13,7 +13,7 @@ Add
 ```bash
 kt_drawer_menu : ^lastest_version
 ```
-to your pubspec.yaml ,and run 
+to your pubspec.yaml and run 
 ```bash
 flutter packages get 
 ```
