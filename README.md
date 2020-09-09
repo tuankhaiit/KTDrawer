@@ -53,7 +53,7 @@ class MainPage extends StatelessWidget {
 ## Available settings
 
 ### Controller
-#### Get the controller anywhere
+#### Get controller
 ```Dart
 KTDrawerMenu.of(context);
 ```
