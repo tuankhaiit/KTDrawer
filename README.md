@@ -4,12 +4,20 @@
 
 # KTDrawer
 
-KTDrawer is a library to create a beautiful drawer menu with with deep customization capabilities.
+KTDrawer is a library for flutter to create a beautiful drawer menu with with deep customization capabilities.
 
 
-## Getting Started
+## Installation
 
-Updating...
+Add 
+```bash
+kt_drawer_menu : ^lastest_version
+```
+to your pubspec.yaml ,and run 
+```bash
+flutter packages get 
+```
+in your project's root directory.
 
 
 ## Example
