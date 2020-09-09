@@ -1,6 +1,8 @@
-# KTDrawerMenu
+![](https://github.com/tuankhaiit/KTDrawer/tree/master/example/images/layout.gif)
 
-KTDrawerMenu is a library to create a beautiful drawer menu with with deep customization capabilities.
+# KTDrawer
+
+KTDrawer is a library to create a beautiful drawer menu with with deep customization capabilities.
 
 
 ## Getting Started
@@ -27,10 +29,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MainPage extends StatelessWidget {
-  // ignore: close_sinks
-  final StreamController<DrawerItemEnum> _streamController =
-      StreamController<DrawerItemEnum>.broadcast(sync: true);
-
   @override
   Widget build(BuildContext context) {
     return KTDrawerMenu(
@@ -39,8 +37,8 @@ class MainPage extends StatelessWidget {
       scale: 0.6,
       shadow: 20.0,
       shadowColor: Colors.black12,
-      drawer: DrawerPage(streamController: _streamController),
-      content: HomePage(streamController: _streamController),
+      drawer: DrawerPage(),
+      content: HomePage(),
     );
   }
 }
@@ -53,7 +51,7 @@ class MainPage extends StatelessWidget {
 ## Available settings
 
 ### Controller
-This actions is only accessible by the children of KTDrawerMenu.
+This actions is only accessible by the children of KTDrawer.
 
 #### Get controller
 ```Dart
