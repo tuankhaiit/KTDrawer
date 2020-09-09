@@ -53,19 +53,19 @@ class MainPage extends StatelessWidget {
 ## Available settings
 
 ### Controller
-* Get the controller anywhere
+#### Get the controller anywhere
 ```Dart
 KTDrawerMenu.of(context);
 ```
-* Open drawer
+#### Open drawer
 ```Dart
 KTDrawerMenu.of(context).openDrawer();
 ```
-* Close drawer
+#### Close drawer
 ```Dart
 KTDrawerMenu.of(context).closeDrawer();
 ```
-* Toggle drawer
+#### Toggle drawer
 ```Dart
 KTDrawerMenu.of(context).toggle();
 ```
