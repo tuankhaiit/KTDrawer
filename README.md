@@ -2,9 +2,11 @@
 
 KTDrawerMenu is a library to create a beautiful drawer menu with with deep customization capabilities.
 
+
 ## Getting Started
 
 Updating...
+
 
 ## Example
 
@@ -45,7 +47,8 @@ class MainPage extends StatelessWidget {
 
 ```
 
-Full example: [link](https://github.com/tuankhaiit/kt_drawer_menu/blob/master/example/lib/main.dart)
+[Full Example](https://github.com/tuankhaiit/kt_drawer_menu/blob/master/example/lib/main.dart)
+
 
 ## Available settings
 
