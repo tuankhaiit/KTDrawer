@@ -50,7 +50,22 @@ Full example: [link](https://github.com/tuankhaiit/kt_drawer_menu/blob/master/ex
 ## Available settings
 
 ### Controller
-* Open/close/toggle the drawer with controller.
+* Get the controller anywhere
+```Dart
+KTDrawerMenu.of(context);
+```
+* Open drawer
+```Dart
+KTDrawerMenu.of(context).openDrawer();
+```
+* Close drawer
+```Dart
+KTDrawerMenu.of(context).closeDrawer();
+```
+* Toggle drawer
+```Dart
+KTDrawerMenu.of(context).toggle();
+```
 
 ### Drawer
 * Set edge drag width.
