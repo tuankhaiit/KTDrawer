@@ -11,7 +11,7 @@ KTDrawer is a library for flutter to create a beautiful drawer menu with with de
 
 Add 
 ```bash
-kt_drawer_menu : ^lastest_version
+kt_drawer_menu: ^lastest_version
 ```
 to your pubspec.yaml and run 
 ```bash
