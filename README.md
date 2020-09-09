@@ -1,10 +1,12 @@
 <p align="center">
-    <img width="300" height="600" src="https://github.com/tuankhaiit/KTDrawer/blob/master/example/images/layout.gif"/>
+    <img width="300" height="600" src="https://github.com/tuankhaiit/KTDrawer/raw/master/example/images/layout.gif"/>
 </p>
 
 # KTDrawer
 
 KTDrawer is a library for flutter to create a beautiful drawer menu with with deep customization capabilities.
+[![License][license-image]][license-url]
+[![version](https://img.shields.io/badge/version-0.0.3-green.svg)](https://semver.org)
 
 
 ## Installation
