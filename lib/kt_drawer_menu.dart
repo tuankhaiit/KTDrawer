@@ -202,9 +202,13 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
             _isDragging = false;
           },
           child: Stack(
-            fit: StackFit.expand,
             children: [
-              widget.drawer,
+              Container(
+                color: Colors.black38,
+                width: width,
+                height: height,
+                child: widget.drawer,
+              ),
               Transform.scale(
                 scale: _scaleAnimation.value,
                 child: Transform.translate(

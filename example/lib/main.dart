@@ -63,26 +63,25 @@ class DrawerPage extends StatelessWidget {
       initialData: DrawerItemEnum.DASHBOARD,
       builder: (context, snapshot) {
         selected = snapshot.data;
-        return Container();
-//        return Container(
-//          color: Colors.blueGrey[900],
-//          child: Stack(
-//            children: [
-//              Center(
-//                child: Column(
-//                  mainAxisAlignment: MainAxisAlignment.center,
-//                  children: [
-//                    _getMenu(context, DrawerItemEnum.DASHBOARD),
-//                    _getMenu(context, DrawerItemEnum.MESSAGE),
-//                    _getMenu(context, DrawerItemEnum.SETTINGS),
-//                    _getMenu(context, DrawerItemEnum.ABOUT),
-//                    _getMenu(context, DrawerItemEnum.HELP),
-//                  ],
-//                ),
-//              )
-//            ],
-//          ),
-//        );
+        return Container(
+          color: Colors.blueGrey[900],
+          child: Stack(
+            children: [
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _getMenu(context, DrawerItemEnum.DASHBOARD),
+                    _getMenu(context, DrawerItemEnum.MESSAGE),
+                    _getMenu(context, DrawerItemEnum.SETTINGS),
+                    _getMenu(context, DrawerItemEnum.ABOUT),
+                    _getMenu(context, DrawerItemEnum.HELP),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
       },
     );
   }
