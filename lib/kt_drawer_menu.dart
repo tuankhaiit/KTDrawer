@@ -77,7 +77,7 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
   static final kVelocity = 700.0;
   var _downOffset = Offset.zero;
   var _isDragging = false;
-  var _isOpen = false;
+  var isOpen = false;
 
   @override
   void initState() {
@@ -270,6 +270,8 @@ class KTDrawerController {
   _KTDrawerMenuState _state;
 
   KTDrawerController();
+
+  bool isOpening() => _state.isOpen;
 
   void openDrawer() {
     if (_state != null) {
