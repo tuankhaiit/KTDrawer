@@ -2,10 +2,10 @@
     <img width="300" height="600" src="https://github.com/tuankhaiit/KTDrawer/raw/master/example/images/layout.gif"/>
 </p>
 
-# KTDrawer
+# KTDrawerMenu
 [![version](https://img.shields.io/badge/version-0.0.5-green.svg)](https://pub.dev/packages/kt_drawer_menu)
 
-KTDrawer is a library for flutter to create a beautiful drawer menu with with deep customization capabilities.
+KTDrawerMenu is a library for flutter to create a beautiful drawer menu with deep customization capabilities.
 
 
 ## Installation
@@ -62,7 +62,7 @@ class MainPage extends StatelessWidget {
 ## Available settings
 
 ### Controller
-This actions is only accessible by the children of KTDrawer.
+This actions is only accessible by the children of KTDrawerMenu.
 
 #### Get controller
 ```Dart
