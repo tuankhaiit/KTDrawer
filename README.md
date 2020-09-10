@@ -3,7 +3,7 @@
 </p>
 
 # KTDrawerMenu
-[![version](https://img.shields.io/badge/version-0.0.5-green.svg)](https://pub.dev/packages/kt_drawer_menu)
+[![version](https://img.shields.io/badge/version-0.0.6-green.svg)](https://pub.dev/packages/kt_drawer_menu)
 
 KTDrawerMenu is a library for flutter to create a beautiful drawer menu with deep customization capabilities.
 

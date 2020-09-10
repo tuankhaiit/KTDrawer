@@ -222,21 +222,18 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
                               spreadRadius: _shadowAnimation.value / 2.0,
                               blurRadius: _shadowAnimation.value * 2)
                         ]),
-                    child: AbsorbPointer(
-                      absorbing: _animationController.isCompleted,
-                      child: ClipRRect(
-                        borderRadius: _radiusAnimation.value,
-                        child: Stack(
-                          children: [
-                            widget.content,
-                            Container(
-                              color: _animation.value == 0
-                                  ? null
-                                  : widget.colorOverlay
-                                      .withOpacity(_alphaAnimation.value),
-                            )
-                          ],
-                        ),
+                    child: ClipRRect(
+                      borderRadius: _radiusAnimation.value,
+                      child: Stack(
+                        children: [
+                          widget.content,
+                          Container(
+                            color: _animation.value == 0
+                                ? null
+                                : widget.colorOverlay
+                                    .withOpacity(_alphaAnimation.value),
+                          )
+                        ],
                       ),
                     ),
                   ),

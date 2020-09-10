@@ -1,3 +1,13 @@
+## [0.0.6] - 10/09/2020.
+
+* Optimized performance.
+
+
+## [0.0.5+2] - 10/09/2020.
+
+* Change default color to transparent.
+
+
 ## [0.0.5] - 09/09/2020.
 
 * Change default color to transparent.
