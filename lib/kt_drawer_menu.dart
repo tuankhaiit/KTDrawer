@@ -138,12 +138,12 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
 
   closeDrawer() {
     _animationController.reverse();
-    _isOpen = false;
+    isOpen = false;
   }
 
   openDrawer() {
     _animationController.forward();
-    _isOpen = true;
+    isOpen = true;
   }
 
   @override
@@ -159,7 +159,7 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
         child: GestureDetector(
           onHorizontalDragDown: (DragDownDetails details) {
             var position = details.globalPosition;
-            if (_isOpen || (!_isOpen && position.dx < widget.edgeDragWidth)) {
+            if (isOpen || (!isOpen && position.dx < widget.edgeDragWidth)) {
               _downOffset = position;
               _isDragging = true;
             }
@@ -167,7 +167,7 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
           onHorizontalDragUpdate: (DragUpdateDetails details) {
             var position = details.globalPosition;
             if (_isDragging) {
-              if (_isOpen) {
+              if (isOpen) {
                 var newValue =
                     1 - (_downOffset.dx - position.dx - 15) / widget.width;
                 _animationController.value = newValue;
