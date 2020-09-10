@@ -1,3 +1,9 @@
+## [0.0.5] - 09/09/2020.
+
+* Change default color to transparent.
+* Formatted according to dartfmt.
+
+
 ## [0.0.4] - 09/09/2020.
 
 * Update README.md

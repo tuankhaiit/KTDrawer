@@ -49,8 +49,7 @@ class KTDrawerMenu extends StatefulWidget {
     this.colorOverlay = kColorOverlay,
     this.onStateChange,
     this.onProgressChange,
-  })
-      : this.controller = controller ?? KTDrawerController(),
+  })  : this.controller = controller ?? KTDrawerController(),
         this.duration = duration ?? Duration(milliseconds: kDuration),
         assert(edgeDragWidth > 0),
         assert(opacity >= 0 && opacity < 1.0),
@@ -91,18 +90,18 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
     );
 
     _animation =
-    Tween<double>(begin: 0.0, end: 1.0).animate(_animationController)
-      ..addListener(() {
-        if (widget.onProgressChange != null) {
-          widget.onProgressChange(_animation.value);
-        }
-        setState(() {});
-      })
-      ..addStatusListener((status) {
-        if (widget.onStateChange != null) {
-          widget.onStateChange(status);
-        }
-      });
+        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController)
+          ..addListener(() {
+            if (widget.onProgressChange != null) {
+              widget.onProgressChange(_animation.value);
+            }
+            setState(() {});
+          })
+          ..addStatusListener((status) {
+            if (widget.onStateChange != null) {
+              widget.onStateChange(status);
+            }
+          });
 
     _scaleAnimation = Tween<double>(begin: 1.0, end: widget.scale)
         .animate(_animationController);
@@ -116,8 +115,7 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
     ).animate(
         CurvedAnimation(parent: _animationController, curve: Curves.ease));
 
-    _shadowAnimation = Tween<double>(begin: 0.0, end: widget.shadow)
-        .animate(
+    _shadowAnimation = Tween<double>(begin: 0.0, end: widget.shadow).animate(
         CurvedAnimation(parent: _animationController, curve: Curves.ease));
   }
 
@@ -150,9 +148,7 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
 
   @override
   Widget build(BuildContext context) {
-    var device = MediaQuery
-        .of(context)
-        .size;
+    var device = MediaQuery.of(context).size;
     var width = device.width;
     var height = device.height;
 
@@ -204,7 +200,7 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
           child: Stack(
             children: [
               Container(
-                color: Colors.black38,
+                color: Colors.transparent,
                 width: width,
                 height: height,
                 child: widget.drawer,
@@ -222,10 +218,8 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
                           BoxShadow(
                               color: widget.shadowColor.withOpacity(0.5),
                               spreadRadius: _shadowAnimation.value / 2.0,
-                              blurRadius: _shadowAnimation.value * 2
-                          )
-                        ]
-                    ),
+                              blurRadius: _shadowAnimation.value * 2)
+                        ]),
                     child: AbsorbPointer(
                       absorbing: _animationController.isCompleted,
                       child: ClipRRect(
@@ -237,7 +231,7 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
                               color: _animation.value == 0
                                   ? null
                                   : widget.colorOverlay
-                                  .withOpacity(_alphaAnimation.value),
+                                      .withOpacity(_alphaAnimation.value),
                             )
                           ],
                         ),
