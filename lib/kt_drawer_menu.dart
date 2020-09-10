@@ -200,7 +200,7 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
           child: Stack(
             children: [
               Container(
-                color: Colors.transparent,
+                color: Colors.white,
                 width: width,
                 height: height,
                 child: widget.drawer,
@@ -216,7 +216,9 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
                         borderRadius: _radiusAnimation.value,
                         boxShadow: [
                           BoxShadow(
-                              color: widget.shadowColor.withOpacity(0.5),
+                              color: widget.shadow == 0
+                                  ? Colors.transparent
+                                  : widget.shadowColor.withOpacity(0.5),
                               spreadRadius: _shadowAnimation.value / 2.0,
                               blurRadius: _shadowAnimation.value * 2)
                         ]),
