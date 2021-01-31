@@ -29,6 +29,7 @@ class KTDrawerMenu extends StatefulWidget {
   final Color shadowColor;
   final double opacity;
   final Color colorOverlay;
+  final bool shouldCloseOnTap;
   final AnimationStatusListener onStateChange;
   final ValueChanged<double> onProgressChange;
 
@@ -47,6 +48,7 @@ class KTDrawerMenu extends StatefulWidget {
     this.shadowColor = kShadowColor,
     this.opacity = kOpacity,
     this.colorOverlay = kColorOverlay,
+    this.shouldCloseOnTap = true,
     this.onStateChange,
     this.onProgressChange,
   })  : this.controller = controller ?? KTDrawerController(),
@@ -222,18 +224,25 @@ class _KTDrawerMenuState extends State<KTDrawerMenu>
                               spreadRadius: _shadowAnimation.value / 2.0,
                               blurRadius: _shadowAnimation.value * 2)
                         ]),
-                    child: ClipRRect(
-                      borderRadius: _radiusAnimation.value,
-                      child: Stack(
-                        children: [
-                          widget.content,
-                          Container(
-                            color: _animation.value == 0
-                                ? null
-                                : widget.colorOverlay
-                                    .withOpacity(_alphaAnimation.value),
-                          )
-                        ],
+                    child: GestureDetector(
+                      onTap: () {
+                        if (isOpen && widget.shouldCloseOnTap) {
+                          closeDrawer();
+                        }
+                      },
+                      child: ClipRRect(
+                        borderRadius: _radiusAnimation.value,
+                        child: Stack(
+                          children: [
+                            widget.content,
+                            Container(
+                              color: _animation.value == 0
+                                  ? null
+                                  : widget.colorOverlay
+                                      .withOpacity(_alphaAnimation.value),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
